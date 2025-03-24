@@ -1,5 +1,8 @@
 # Projeto SQLite para Gestão de imagens
 
+Este projeto é um editor de imagens web interativo que permita ao utilizador criar, editar e manipular imagens diretamente no navegador. 
+
+Esta aplicação permite funções básicas de edição, como redimensionamento, rotação, ajustes de brilho e contraste, e a criação de imagens do zero
 
 ## Estrutura do Projeto
 
@@ -59,8 +62,6 @@ dispositivo.
    ```bash
    python app/main.py
    ```
-
-### Scripts Individuais
 
 
 ## Contribuições
