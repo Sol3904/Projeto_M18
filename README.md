@@ -21,19 +21,19 @@ A estrutura do diretório está organizada da seguinte forma:
 ```
 ## Funcionalidades
 
-o Carregar Imagens: O utilizador pode carregar imagens do seu dispositivo local através do
+o **Carregar Imagens: O utilizador pode carregar imagens do seu dispositivo local através do
 frontend.
-o Edição de Imagens: O editor permite as seguintes funcionalidades de edição:
-▪ Redimensionamento de imagem.
-▪ Rotação da imagem.
-▪ Ajuste de brilho e contraste.
-▪ Aplicação de filtros básicos (como preto e branco, sepia, etc.).
-▪ Adição de texto e formas geométricas simples (como linhas e círculos).
-o Criação de Imagens: O utilizador pode criar imagens a partir do zero, utilizando ferramentas
+o **Edição de Imagens: O editor permite as seguintes funcionalidades de edição:
+▪ **Redimensionamento de imagem.
+▪ **Rotação da imagem.
+▪ **Ajuste de brilho e contraste.
+▪ **Aplicação de filtros básicos (como preto e branco, sepia, etc.).
+▪ **Adição de texto e formas geométricas simples (como linhas e círculos).
+o **Criação de Imagens: O utilizador pode criar imagens a partir do zero, utilizando ferramentas
 de desenho (ex.: desenhar formas e escrever textos).
-o Visualização de Resultados: O sistema deve permitir a visualização em tempo real das alterações
+o **Visualização de Resultados: O sistema deve permitir a visualização em tempo real das alterações
 feitas na imagem antes de salvar.
-o Salvar Imagens: O utilizador pode baixar as imagens editadas ou criadas diretamente no seu
+o **Salvar Imagens: O utilizador pode baixar as imagens editadas ou criadas diretamente no seu
 dispositivo.
 
 ## Utilização
