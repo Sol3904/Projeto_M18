@@ -1,7 +1,7 @@
 import os
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder="templates", static_folder="static")
 
 @app.route('/')
 def home():
@@ -18,6 +18,10 @@ def gallery():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/paint')  # New route for the paint feature
+def paint():
+    return render_template('paint.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

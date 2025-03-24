@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabric.js Paint Application</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.1/fabric.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #paintCanvas {
+            border: 1px solid #000;
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+        }
+        .controls {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center;">Fabric.js Paint Application</h1>
+    <canvas id="paintCanvas" width="600" height="400"></canvas>
+
+    <div class="controls">
+        <button id="toggle-drawing-mode">Cancel Drawing Mode</button>
+        <button id="clear-canvas">Clear Canvas</button>
+        <a href="/">Back to Home</a>
+    </div>
+
+    <script>
+        const $ = (id) => document.getElementById(id);
+
+        // Initialize the Fabric.js canvas
+        const canvasEl = $('paintCanvas');
+        const canvas = new fabric.Canvas(canvasEl);
+
+        // Default to not drawing
+        canvas.isDrawingMode = false;
+
+        // Create Pencil Brush
+        const pencilBrush = new fabric.PencilBrush(canvas);
+        pencilBrush.color = '#000'; // Black color for drawing
+        pencilBrush.width = 5; // Set the default drawing width
+
+        // Assign the brush to the canvas when entering drawing mode
+        canvas.freeDrawingBrush = pencilBrush;
+
+        // Set up the button to toggle drawing mode
+        const toggleDrawingModeEl = $('toggle-drawing-mode');
+        const clearEl = $('clear-canvas');
+
+        // Toggle drawing mode on button click (cancel or activate)
+        toggleDrawingModeEl.onclick = function () {
+            if (canvas.isDrawingMode) {
+                canvas.isDrawingMode = false;
+                toggleDrawingModeEl.innerHTML = 'Cancel Drawing Mode';
+            } else {
+                canvas.isDrawingMode = true;
+                toggleDrawingModeEl.innerHTML = 'Exit Drawing Mode';
+            }
+        };
+
+        // Clear canvas button
+        clearEl.onclick = function () {
+            canvas.clear();
+        };
+
+        // Debug: Mouse click detection
+        canvasEl.addEventListener('mousedown', function(event) {
+            console.log('Mouse click detected on canvas!');
+            console.log('Mouse X: ' + event.offsetX + ', Mouse Y: ' + event.offsetY);
+        });
+
+    </script>
+</body>
+</html>

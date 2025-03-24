@@ -5,14 +5,20 @@
 </head>
 <body>
     <h1>Welcome to My Webpage</h1>
+    
     <form method="post">
         <label for="username">Enter your name:</label>
         <input type="text" id="username" name="username" required>
         <button type="submit">Submit</button>
     </form>
+
     {% if name %}
         <h2>Hello, {{ name }}!</h2>
     {% endif %}
-    <a href="/img">Go to Image Gallery</a> | <a href="/about">About</a>
+
+    <!-- Navigation Links -->
+    <a href="/img">Go to Image Gallery</a> | 
+    <a href="/about">About</a> | 
+    <a href="/paint">Go to Canvas</a>  <!-- New shortcut added -->
 </body>
 </html>
