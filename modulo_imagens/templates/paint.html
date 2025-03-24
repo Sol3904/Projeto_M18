@@ -3,36 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicação de desenho</title>
     <script src="https://cdn.jsdelivr.net/npm/fabric@latest/dist/index.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        #paintCanvas {
-            border: 1px solid #000;
-            display: block;
-            margin: 20px auto;
-        }
-        button {
-            display: block;
-            margin: 20px auto;
-        }
-        .controls {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Aplicação de desenho</title>
 </head>
 <body>
     <h1 style="text-align:center;">Aplicação de desenho</h1>
     <canvas id="paintCanvas" width="600" height="400"></canvas>
 
     <div class="controls">
-        <button id="toggle-drawing-mode">Cancel Drawing Mode</button>
-        <button id="clear-canvas">Clear Canvas</button>
-        <a href="/">Back to Home</a>
+        <button id="toggle-drawing-mode">Começar a desenhar</button>
+        <button id="clear-canvas">Apagar quadro</button>
+        <a href="/">Voltar</a>
     </div>
     <script src="../static/js/paint.js"></script>
 </body>
