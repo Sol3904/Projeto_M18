@@ -9,16 +9,16 @@ Esta aplicação permite funções básicas de edição, como redimensionamento,
 A estrutura do diretório está organizada da seguinte forma:
 ```
 /modulo_imagens
-│── app.py
+│── app.py  # Aplicação principal
 │── /templates
-│   │── index.html
-│   │── img.html
+│   │── index.html 
+│   │── img.html 
 │   │── about.html
-│   │── paint.html  <-- New paint page
+│   │── paint.html  # Nova pagina para desenho
 │── /static
 │   │── /aigispics
 │   │── /js
-│       │── paint.js
+│       │── paint.js 
 |
 |──README.md
 ```
