@@ -23,10 +23,10 @@ const clearEl = $('clear-canvas');
 toggleDrawingModeEl.onclick = function () {
     if (canvas.isDrawingMode) {
         canvas.isDrawingMode = false;
-        toggleDrawingModeEl.innerHTML = 'Cancel Drawing Mode';
+        toggleDrawingModeEl.innerHTML = 'Começar a desenhar';
     } else {
         canvas.isDrawingMode = true;
-        toggleDrawingModeEl.innerHTML = 'Exit Drawing Mode';
+        toggleDrawingModeEl.innerHTML = 'Parar de desenhar';
     }
 };
 
