@@ -4,8 +4,19 @@
 ## Estrutura do Projeto
 
 A estrutura do diretório está organizada da seguinte forma:
-
-
+/modulo_imagens
+│── app.py
+│── /templates
+│   │── index.html
+│   │── img.html
+│   │── about.html
+│   │── paint.html  <-- New paint page
+│── /static
+│   │── /aigispics
+│   │── /js
+│       │── paint.js
+|
+|──README.md
 ## Funcionalidades
 
 o Carregar Imagens: O utilizador pode carregar imagens do seu dispositivo local através do
