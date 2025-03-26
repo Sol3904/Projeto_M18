@@ -1,4 +1,5 @@
 import os
+import base64
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
@@ -14,7 +15,7 @@ app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-@app.route('/')
+@app.route('/',methods=['GET', 'POST'])
 def home():
     return render_template('index.html')
 
@@ -30,7 +31,10 @@ def gallery():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return redirect(url_for('gallery'))
     
+    # List all images in the "static/aigispics" directory
+    img_folder = os.path.join(app.static_folder, "aigispics")
     images = [f"aigispics/{img}" for img in os.listdir(UPLOAD_FOLDER) if allowed_file(img)]
+    
     return render_template('img.html', images=images)
 
 @app.route('/about')
@@ -41,5 +45,22 @@ def about():
 def paint():
     return render_template('paint.html')
 
-if __name__ == '__main__':
+@app.route('/save', methods=['POST'])
+def save_image():
+    data = request.json.get("image")
+    if not data:
+        return {"error": "No image data received"}, 400
+    
+    # Decodificar imagem base64
+    img_data = data.split(",")[1]
+    img_bytes = base64.b64decode(img_data)
+    
+    # Salvar imagem no servidor
+    img_path = os.path.join(app.static_folder, "aigispics", "drawing.png")
+    with open(img_path, "wb") as img_file:
+        img_file.write(img_bytes)
+    
+    return {"message": "Image saved successfully!", "path": f"/static/aigispics/drawing.png"}
+
+if __name__ == "__main__":
     app.run(debug=True)
