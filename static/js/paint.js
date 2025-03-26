@@ -48,14 +48,16 @@ canvasEl.addEventListener('mousedown', function(event) {
 saveEl.onclick = async () => {
     const imageData = canvas.toDataURL('image/png');
     
-    const response = await fetch('/save', {
+    const response = await fetch('/save', 
+    {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: imageData })
     });
     
     const result = await response.json();
-    if (result.message) {
+    if (result.message) 
+    {
         alert('Imagem salva com sucesso!');
         // Opcional: Atualizar a página para exibir a nova imagem na galeria
         window.location.href = '/img';

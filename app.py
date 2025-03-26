@@ -2,6 +2,8 @@ import os
 import base64
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
+import random
+import string
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -55,12 +57,20 @@ def save_image():
     img_data = data.split(",")[1]
     img_bytes = base64.b64decode(img_data)
     
+    def generate_unique_filename(folder, extension=".png", length=10):
+        while True:
+            filename = ''.join(random.choices(string.ascii_letters + string.digits, k=length)) + extension
+            file_path = os.path.join(folder, filename)
+            if not os.path.exists(file_path):
+                return filename
+            
     # Salvar imagem no servidor
-    img_path = os.path.join(app.static_folder, "aigispics", "drawing.png")
+    img_path = os.path.join(app.static_folder, "aigispics", generate_unique_filename("aigispics", ".png"))
     with open(img_path, "wb") as img_file:
-        img_file.write(img_bytes)
-    
+        img_file.write(img_bytes)    
+
     return {"message": "Image saved successfully!", "path": f"/static/aigispics/drawing.png"}
+
 
 if __name__ == "__main__":
     app.run(debug=True)
