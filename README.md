@@ -8,8 +8,7 @@ Esta aplicação permite funções básicas de edição, como redimensionamento,
 
 A estrutura do diretório está organizada da seguinte forma:
 ```
-/modulo_imagens
-│── app.py  # Aplicação principal
+app.py  # Aplicação principal
 │── /templates
 │   │── index.html 
 │   │── img.html 
