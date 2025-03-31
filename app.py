@@ -1,6 +1,6 @@
 import os
 import base64
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 import random
 import string
@@ -34,14 +34,32 @@ def gallery():
         return redirect(url_for('gallery'))
     
     # List all images in the "static/aigispics" directory
-    img_folder = os.path.join(app.static_folder, "aigispics")
     images = [f"aigispics/{img}" for img in os.listdir(UPLOAD_FOLDER) if allowed_file(img)]
     
     return render_template('img.html', images=images)
 
 @app.route('/about')
-def about():
+def about():    
     return render_template('about.html')
+
+@app.route('/delete_images', methods=['POST'])
+def delete_images():
+    data = request.get_json(force=True)  # Força a leitura do JSON
+    image_to_delete = data.get('images', [])  # Obtém a lista de imagens
+    
+    if not image_to_delete:
+        return jsonify({"error": "Nenhuma imagem selecionada"}), 400
+    
+    for image in image_to_delete:
+        image_path = os.path.join(app.static_folder, image)
+        print(image_path)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
+    return jsonify({"message": "Imagens removidas com sucesso!"}), 200
+
+
+
 
 @app.route('/paint')
 def paint():
@@ -63,7 +81,6 @@ def save_image():
             file_path = os.path.join(folder, filename)
             if not os.path.exists(file_path):
                 return filename
-            
     # Salvar imagem no servidor
     img_path = os.path.join(app.static_folder, "aigispics", generate_unique_filename("aigispics", ".png"))
     with open(img_path, "wb") as img_file:

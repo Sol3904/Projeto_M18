@@ -32,10 +32,21 @@
         <button type="submit">Upload Image</button>
     </form>
     <div class="gallery">
+        <form action="/delete_images" method="post">
         {% for image in images %}
-            <img src="{{ url_for('static', filename=image) }}" alt="Uploaded Image">
+            <input type="checkbox" id= "{{image}}" />
+            <label for={{image}}><img src= "{{ url_for('static', filename= image) }}" /></label>
         {% endfor %}
+        <br><br>
+        <button id="delete-images">Delete Selected Image</button>
+        
+        </form>
     </div>
-    <a href="/">Back to Home</a>
+    <br><br>
+    <form action="/img" method="post">
+        <a href="/">Back to Home</a>
+    </form>
+    </form>
+    <script src="../static/js/img.js"></script>
 </body>
 </html>
