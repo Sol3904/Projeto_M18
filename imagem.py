@@ -1,17 +1,21 @@
-from PIL import Image, ImageEnhance, ImageColor, ImageFile, ImageFilter
-ImageFile.LOAD_TRUNCATED_IMAGES = True
+from PIL import Image, ImageEnhance, ImageFilter
 
-img = Image.open(r"C:\\Users\\solan\\Downloads\\aigischibi.jpg")
-aigis = ImageEnhance.Sharpness(img).enhance(5.0)
-aigis = ImageEnhance.Brightness(img).enhance(5.0)
-aigis = ImageEnhance.Contrast(img).enhance(5.0)
-aigis = ImageEnhance.Color(img).enhance(5.0)
+def enhance_image(image_path):
+    """Apply automatic enhancements to the uploaded image."""
+    try:
+        img = Image.open(image_path)
 
-aigis_contorno = aigis.filter(ImageFilter.CONTOUR)
+        # Apply enhancements
+        img = ImageEnhance.Sharpness(img).enhance(2.0)  # Increase sharpness
+        img = ImageEnhance.Brightness(img).enhance(1.5)  # Increase brightness
+        img = ImageEnhance.Contrast(img).enhance(1.5)  # Increase contrast
+        img = ImageEnhance.Color(img).enhance(1.5)  # Boost colors
 
-cor_rgb = ImageColor.getrgb("blue")  # Retorna (0, 0, 255)
-cor_rgb2 = ImageColor.getrgb("#FF5733")  # Retorna (255, 87, 51)
+        # Apply a slight edge enhancement filter
+        img = img.filter(ImageFilter.EDGE_ENHANCE)
 
-print(cor_rgb, cor_rgb2)
-
-aigis_contorno.show()
+        # Save the modified image
+        img.save(image_path)
+        print(f"Enhanced image saved: {image_path}")
+    except Exception as e:
+        print(f"Error processing image {image_path}: {e}")

@@ -1,10 +1,10 @@
-import os
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
+import os
+from imagem import enhance_image  # Import the image processing function
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
-# Directory for uploaded images
 UPLOAD_FOLDER = os.path.join(app.static_folder, "aigispics")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -27,11 +27,24 @@ def gallery():
         if file.filename == '' or not allowed_file(file.filename):
             return redirect(request.url)
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+
         return redirect(url_for('gallery'))
     
     images = [f"aigispics/{img}" for img in os.listdir(UPLOAD_FOLDER) if allowed_file(img)]
     return render_template('img.html', images=images)
+
+@app.route('/edit_image', methods=['POST'])
+def edit_image():
+    image_path = request.form['image_path']
+    full_path = os.path.join(app.static_folder, image_path)
+
+    if os.path.exists(full_path):
+        enhance_image(full_path)  # Only enhance when the user clicks "Edit Image"
+        return redirect(url_for('gallery'))
+    else:
+        return "Error: Image not found", 404
 
 @app.route('/about')
 def about():
