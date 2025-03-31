@@ -33,3 +33,36 @@ DeleteEl.onclick = function () {
         alert('Erro ao deletar imagens');
     });
 };
+
+document.querySelectorAll(".slider").forEach(slider => {
+    slider.addEventListener("input", function () {
+        const image = this.dataset.image;
+        const sliders = document.querySelectorAll(`.slider[data-image="${image}"]`);
+        
+        const values = {
+            image: image,
+            sharpness: sliders[0].value,
+            brightness: sliders[1].value,
+            contrast: sliders[2].value,
+            color: sliders[3].value
+        };
+
+        fetch('/edit_image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Atualizar a imagem na interface com a nova cópia editada
+                const imgElement = document.querySelector(`img[src*="${image}"]`);
+                imgElement.src = `/static/${data.new_image}?t=${new Date().getTime()}`; // Força a atualização da imagem
+                imgElement.dataset.image = data.new_image; // Atualiza o atributo para os próximos ajustes
+            }
+        })
+        .catch(error => console.error('Erro ao modificar a imagem:', error));
+    });
+});
+
+
