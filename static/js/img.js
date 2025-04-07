@@ -17,7 +17,7 @@ DeleteEl.onclick = function () {
     fetch('/delete_images', {
         method: 'POST',
         headers: { 
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ images })  // Envia o corpo como JSON
     })
@@ -34,11 +34,13 @@ DeleteEl.onclick = function () {
     });
 };
 
-document.querySelectorAll(".slider").forEach(slider => {
-    slider.addEventListener("input", function () {
-        const image = this.dataset.image;
-        const sliders = document.querySelectorAll(`.slider[data-image="${image}"]`);
+document.querySelectorAll(".apply-filters").forEach(button => {
+    button.addEventListener("click", function (event) {
+        event.preventDefault();  // <- Isto evita que o botão envie o form
         
+        const image = this.dataset.image;
+
+        const sliders = document.querySelectorAll(`.slider[data-image="${image}"]`);
         const values = {
             image: image,
             sharpness: sliders[0].value,
@@ -47,22 +49,34 @@ document.querySelectorAll(".slider").forEach(slider => {
             color: sliders[3].value
         };
 
+        console.log(values); // Para debug
+
+
         fetch('/edit_image', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(values)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Atualizar a imagem na interface com a nova cópia editada
-                const imgElement = document.querySelector(`img[src*="${image}"]`);
-                imgElement.src = `/static/${data.new_image}?t=${new Date().getTime()}`; // Força a atualização da imagem
-                imgElement.dataset.image = data.new_image; // Atualiza o atributo para os próximos ajustes
+        .then(async response => {
+            const contentType = response.headers.get("content-type");
+            
+            if (contentType && contentType.includes("application/json")) {
+                const data = await response.json();
+                if (data.success) {
+                    const imgElement = document.querySelector(`img[src*="${image}"]`);
+                    imgElement.src = `/static/${data.new_image}?t=${new Date().getTime()}`;
+                    imgElement.dataset.image = data.new_image;
+                }
+            } else {
+                const text = await response.text();
+                console.error("Resposta não é JSON:", text);
             }
+            window.location.reload();
         })
-        .catch(error => console.error('Erro ao modificar a imagem:', error));
+        .catch(error => console.error('Erro ao aplicar filtros:', error));
+        
     });
 });
+
 
 

@@ -55,26 +55,39 @@ def gallery():
     
     return render_template('img.html', images=list_images())
 
-@app.route('/edit_image', methods=['POST'])
+@app.route('/edit_image', methods=['GET', 'POST'])
 def edit_image():
-    data = request.get_json()
-    original_image_path = os.path.join(app.static_folder, data['image'])
+    try:
+        data = request.get_json(force=True)
+        print("Recebido:", data)
 
-    if not os.path.exists(original_image_path):
-        return jsonify({"error": "Imagem não encontrada"}), 404
+        original_image_path = os.path.join(app.static_folder, data['image'])
+        if not os.path.exists(original_image_path):
+            return jsonify({"error": "Imagem não encontrada"}), 404
 
-    # Criar um nome único para a cópia editada
-    edited_image_path = os.path.join(app.static_folder, "aigispics", "edited_" + os.path.basename(original_image_path))
-    
-    # Criar uma cópia da imagem original se ainda não existir
-    if not os.path.exists(edited_image_path):
-        from shutil import copyfile
-        copyfile(original_image_path, edited_image_path)
+        edited_image_path = os.path.join(app.static_folder, "aigispics", "edited_" + os.path.basename(original_image_path))
+        
+        # Cópia da imagem se não existir
+        if not os.path.exists(edited_image_path):
+            from shutil import copyfile
+            copyfile(original_image_path, edited_image_path)
 
-    # Aplicar os efeitos na cópia
-    enhance_image(edited_image_path, float(data['sharpness']), float(data['brightness']), float(data['contrast']), float(data['color']))
+        # Aplicar efeitos
+        enhance_image(
+            edited_image_path,
+            float(data['sharpness']),
+            float(data['brightness']),
+            float(data['contrast']),
+            float(data['color'])
+        )
 
-    return jsonify({"success": True, "new_image": f"aigispics/edited_{os.path.basename(original_image_path)}"})
+        return jsonify({"success": True, "new_image": f"aigispics/edited_{os.path.basename(original_image_path)}"}), 200
+
+    except Exception as e:
+        print("Erro no edit_image:", str(e))
+        return jsonify({"error": "Erro interno ao processar imagem"}), 500
+
+
 
 
 # Rota para deletar imagens
