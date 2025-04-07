@@ -9,17 +9,17 @@
             font-family: Arial, sans-serif;
             text-align: center;
         }
+        .image-container {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+         }
         .gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
-        }
-        .image-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         .gallery img {
             width: 150px;
@@ -29,17 +29,17 @@
             border-radius: 5px;
         }
         .gallery button {
-            margin-top: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
-        .gallery button:hover {
-            background-color: #0056b3;
-        }
+             margin-top: 5px;
+             padding: 5px 10px;
+             cursor: pointer;
+             background-color: #007BFF;
+             color: white;
+             border: none;
+             border-radius: 5px;
+         }
+         .gallery button:hover {
+             background-color: #0056b3;
+         }
     </style>
 </head>
 <body>
@@ -49,16 +49,39 @@
         <button type="submit">Upload Image</button>
     </form>
     <div class="gallery">
+        <form action="/delete_images" method="post">
         {% for image in images %}
-            <div class="image-container">
-                <img src="{{ url_for('static', filename=image) }}" alt="Uploaded Image">
-                <form action="{{ url_for('edit_image') }}" method="POST">
-                    <input type="hidden" name="image_path" value="{{ image }}">
-                    <button type="submit">Edit Image</button>
-                </form>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename=image) }}" />
+            <div>
+                <label>Sharpness</label>
+                <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="sharpness">
             </div>
+            <div>
+                <label>Brightness</label>
+                <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="brightness">
+            </div>
+            <div>
+                <label>Contrast</label>
+                <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="contrast">
+            </div>
+            <div>
+                <label>Color</label>
+                <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="color">
+            </div>
+            <input type="checkbox" id= "{{image}}"/>
+            <button class="apply-filters" data-image="{{ image }}">Aplicar Filtros</button>
+        </div>
         {% endfor %}
+        </form>
     </div>
-    <a href="/">Back to Home</a>
+    <br><br>
+        <button id="delete-images">Delete Selected Image</button>
+    <br><br>
+    <form action="/img" method="post">
+        <a href="/">Back to Home</a>
+    </form>
+    </form>
+    <script src="../static/js/img.js"></script>
 </body>
 </html>

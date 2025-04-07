@@ -1,21 +1,16 @@
 from PIL import Image, ImageEnhance, ImageFilter
 
-def enhance_image(image_path):
-    """Apply automatic enhancements to the uploaded image."""
+def enhance_image(image_path, sharpness=1.0, brightness=1.0, contrast=1.0, color=1.0):
+    """Aplica melhorias à imagem copiada."""
     try:
         img = Image.open(image_path)
+        img = ImageEnhance.Sharpness(img).enhance(sharpness)
+        img = ImageEnhance.Brightness(img).enhance(brightness)
+        img = ImageEnhance.Contrast(img).enhance(contrast)
+        img = ImageEnhance.Color(img).enhance(color)
 
-        # Apply enhancements
-        img = ImageEnhance.Sharpness(img).enhance(2.0)  # Increase sharpness
-        img = ImageEnhance.Brightness(img).enhance(1.5)  # Increase brightness
-        img = ImageEnhance.Contrast(img).enhance(1.5)  # Increase contrast
-        img = ImageEnhance.Color(img).enhance(1.5)  # Boost colors
-
-        # Apply a slight edge enhancement filter
-        img = img.filter(ImageFilter.EDGE_ENHANCE)
-
-        # Save the modified image
-        img.save(image_path)
-        print(f"Enhanced image saved: {image_path}")
+        img.save(image_path)  # Salva a imagem editada
+        print(f"Imagem editada salva: {image_path}")
     except Exception as e:
-        print(f"Error processing image {image_path}: {e}")
+        print(f"Erro ao processar imagem {image_path}: {e}")
+
