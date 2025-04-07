@@ -71,3 +71,51 @@ dispositivo.
 ## Contribuições
 
 Contribuições são bem-vindas! Por favor, abra uma *issue* ou envie um *pull request* se desejar sugerir melhorias ou adicionar novas funcionalidades.
+
+
+# Manual do utilizador: Site de imagens
+
+1. Visão geral
+
+Este site permite que o utilizador:
+
+* Carregue imagens para uma galeria de imagens compartilhada
+
+* Visualize as imagens carregadas
+
+* Melhore manualmente as imagens por meio de filtros (contraste, brilho, etc.)
+
+* Desenhe livremente em uma tela digital
+
+# Modo de utilização
+
+## Página inicial
+
+Pode navegar até à página inicial para aceder à galeria, ao paint e ao "sobre"
+
+## Galeria (/img)
+
+Fazer upload de uma imagem:
+
+* Clique em "Choose File" para selecionar uma imagem (.png, .jpg, .jpeg or .gif)
+
+* Clique em "Upload Image" para enviar a imagem para a galeria
+
+
+## Editar uma imagem:
+
+Após fazer o upload, as imagens vão aparecer na galeria
+
+- Clique no botão "Aplicar Filtros" abaixo de uma imagem para aplicar a edição automaticamente (sharpen. brighten, color boost, etc.); é possível controlar a intensidade das edições através de sliders
+
+## Aplicação paint (/paint)
+
+* Use o canvas para desenhar livremente com o mouse
+
+* Use estilo brush/width/color para personalizar o desenho
+
+* Clique "Cancel Drawing Mode" para desabilitar o desenho temporariamente
+
+* Clique "Clear Canvas" para limpar a tela
+
+* Clique "Back to Home" para regressar
