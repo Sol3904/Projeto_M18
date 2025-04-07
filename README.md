@@ -49,8 +49,13 @@ dispositivo.
 
 ## Utilização
 
-### Pré-requisitos
+### Instalação
 
+1. Certifica-te de que tens o Python instalado (versão 3.10+).
+2. Instala os requisitos com:
+
+   ```bash
+   pip install -r requirements.txt
 
 ### Passos para Executar
 
@@ -59,7 +64,7 @@ dispositivo.
 3. Execute o script principal para iniciar o servidor da página:
 
    ```bash
-   python app/main.py
+   python app.py
    ```
 
 
