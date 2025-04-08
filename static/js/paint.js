@@ -1,42 +1,47 @@
 const $ = (id) => document.getElementById(id);
 
-// Initialize the Fabric.js canvas
 const canvasEl = $('paintCanvas');
 const canvas = new fabric.Canvas(canvasEl);
 
-// Default to not drawing
+// Predefinir o modo de desenho para falso
 canvas.isDrawingMode = false;
 
-// Create Pencil Brush
+// Criar pincel
 const pencilBrush = new fabric.PencilBrush(canvas);
-pencilBrush.color = '#000'; // Black color for drawing
-pencilBrush.width = 5; // Set the default drawing width
+pencilBrush.color = '#000'; // Cor do desenho preta
+pencilBrush.width = 5; // Largura do desenho
 
-// Assign the brush to the canvas when entering drawing mode
+// Atribuir o pincel ao quadro de desenho quando em modo de desenho
 canvas.freeDrawingBrush = pencilBrush;
 
-// Set up the button to toggle drawing mode
+// Preparar o botão para o modo de desenho
 const toggleDrawingModeEl = $('toggle-drawing-mode');
 const clearEl = $('clear-canvas');
 const saveEl = $('save-canvas');
 
-// Toggle drawing mode on button click (cancel or activate)
+/**
+ * Esta função permite trocar entre o modo de desenho e o modo de edição do Quadro.
+ */
 toggleDrawingModeEl.onclick = function () {
     if (canvas.isDrawingMode) {
         canvas.isDrawingMode = false;
-        toggleDrawingModeEl.innerHTML = 'Cancel Drawing Mode';
+        toggleDrawingModeEl.innerHTML = 'Desenhar';
     } else {
         canvas.isDrawingMode = true;
-        toggleDrawingModeEl.innerHTML = 'Exit Drawing Mode';
+        toggleDrawingModeEl.innerHTML = 'Sair do desenho';
     }
 };
 
-// Clear canvas button
+/**
+ * Esta função permite que, ao clicar no botão "Apagar quadro", o desenho seja apagado do quadro.
+ */
 clearEl.onclick = function () {
     canvas.clear();
 };
 
-// Debug: Mouse click detection
+/**
+ * Esta função permite a deteção do clique do rato
+ */
 canvasEl.addEventListener('mousedown', function(event) {
     console.log('Mouse click detected on canvas!');
     console.log('Mouse X: ' + event.offsetX + ', Mouse Y: ' + event.offsetY);
@@ -44,7 +49,9 @@ canvasEl.addEventListener('mousedown', function(event) {
 
 
 
-// Function to save the canvas drawing
+/**
+ * Esta função permite que, ao clicar no botão "salvar desenho", o desenho seja salvo na galeria.
+ */
 saveEl.onclick = async () => {
     const imageData = canvas.toDataURL('image/png');
     

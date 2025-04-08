@@ -17,29 +17,37 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
+# Esta função valida as imagens carregadas para garantir que cumprem certos critérios (por exemplo, tipo de ficheiro).
 def allowed_file(filename):
-    """Verifica se o arquivo tem uma extensão permitida."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 # Rotas principais
+# Rota para a pagina principal
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template('index.html')
 
+# Rota para a pagina sobre
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+# Rota para a página de desenho
 @app.route('/paint')
 def paint():
     return render_template('paint.html')
 
 # Rota para galeria de imagens
+#Esta função Lista todas as imagens no diretório 'static/aigispics'(galeria do utilizador).
 def list_images():
-    """Lista todas as imagens no diretório 'static/aigispics'."""
     return [f"aigispics/{img}" for img in os.listdir(UPLOAD_FOLDER) if allowed_file(img)]
 
 @app.route('/img', methods=['GET', 'POST'])
+#Esta função Exibe uma galeria de imagens ao utilizador.
+#Permite ao utilizador carregar novas imagens para a galeria.
+#Valida as imagens carregadas para garantir que cumprem certos critérios (por exemplo, tipo de ficheiro).
+#Guarda as imagens carregadas num local de armazenamento designado.
+#Atualiza a exibição da galeria para incluir a imagem recém-carregada.
 def gallery():
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -56,6 +64,7 @@ def gallery():
     return render_template('img.html', images=list_images())
 
 @app.route('/edit_image', methods=['GET', 'POST'])
+# Esta função permite que a imagem seja editada, alterando os valores de sharpness, brightness, contrast e color, mostrados nos sliders abaixo de cada imagem.
 def edit_image():
     try:
         data = request.get_json(force=True)
@@ -92,6 +101,7 @@ def edit_image():
 
 # Rota para deletar imagens
 @app.route('/delete_images', methods=['POST'])
+#Esta função permite que, ao clicar no botão "Apagar imagens selecionadas", se apagem as imagens selecionadas.
 def delete_images():
     data = request.get_json(force=True)
     images_to_delete = data.get('images', [])
@@ -108,6 +118,7 @@ def delete_images():
 
 # Rota para salvar imagens desenhadas
 @app.route('/save', methods=['POST'])
+#Esta função permite que, ao clicar no botão "Salvar desenho", se salve o desenho que o utilizador fez no quadro.
 def save_image():
     data = request.json.get("image")
     if not data:
@@ -116,6 +127,7 @@ def save_image():
     img_data = data.split(",")[1]
     img_bytes = base64.b64decode(img_data)
     
+    #Esta função cria um nome unico para cada ficheiro salvo.
     def generate_unique_filename(folder, extension=".png", length=10):
         while True:
             filename = ''.join(random.choices(string.ascii_letters + string.digits, k=length)) + extension

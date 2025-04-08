@@ -4,21 +4,20 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome to My Webpage</h1>
+    <h1>Bem vindo ao site</h1>
     
     <form method="post">
-        <label for="username">Enter your name:</label>
+        <label for="username">Introduz o teu nome:</label>
         <input type="text" id="username" name="username" required>
-        <button type="submit">Submit</button>
+        <button type="submit">Enviar</button>
     </form>
 
-    {% if name %}
-        <h2>Hello, {{ name }}!</h2>
+    {% if username %}
+        <h2>Olá, {{ username }}!</h2>
     {% endif %}
 
-    <!-- Navigation Links -->
-    <a href="/img">Go to Image Gallery</a> | 
-    <a href="/about">About</a> | 
-    <a href="/paint">Go to Canvas</a>  <!-- New shortcut added -->
+    <a href="/img">Ir para Galeria</a> | 
+    <a href="/about">Sobre</a> | 
+    <a href="/paint">Quadro de desenho</a>
 </body>
 </html>

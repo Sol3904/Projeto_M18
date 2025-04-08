@@ -1,6 +1,9 @@
 const DeleteEl = document.getElementById('delete-images');
 
-DeleteEl.onclick = function () {
+/**
+ * Esta função permite que, ao clicar no botão "Apagar imagens selecionadas", as imagens selecionadas sejam removidas.
+ */
+DeleteEl.onclick = function () { 
     const images = [];
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
@@ -34,6 +37,9 @@ DeleteEl.onclick = function () {
     });
 };
 
+/**
+ * Esta função permite que, ao clicar no botão "Aplicar Filtros", sejam aplicados todos os filtros ,que foram alterados pelo utilizador, na respetiva imagem.
+ */
 document.querySelectorAll(".apply-filters").forEach(button => {
     button.addEventListener("click", function (event) {
         event.preventDefault();  // <- Isto evita que o botão envie o form

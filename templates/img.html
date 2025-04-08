@@ -43,10 +43,10 @@
     </style>
 </head>
 <body>
-    <h1>Image Gallery</h1>
+    <h1>Galeria de Imagens</h1>
     <form action="/img" method="post" enctype="multipart/form-data">
         <input type="file" name="file" accept="image/*" required>
-        <button type="submit">Upload Image</button>
+        <button type="submit">Carregar Imagem</button>
     </form>
     <div class="gallery">
         <form action="/delete_images" method="post">
@@ -54,19 +54,19 @@
         <div class="image-container">
             <img src="{{ url_for('static', filename=image) }}" />
             <div>
-                <label>Sharpness</label>
+                <label>Afiação</label>
                 <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="sharpness">
             </div>
             <div>
-                <label>Brightness</label>
+                <label>Luminosidade</label>
                 <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="brightness">
             </div>
             <div>
-                <label>Contrast</label>
+                <label>Contraste</label>
                 <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="contrast">
             </div>
             <div>
-                <label>Color</label>
+                <label>Cor</label>
                 <input type="range" min="0" max="3" step="0.1" value="1" class="slider" data-image="{{ image }}" data-type="color">
             </div>
             <input type="checkbox" id= "{{image}}"/>
@@ -76,10 +76,10 @@
         </form>
     </div>
     <br><br>
-        <button id="delete-images">Delete Selected Image</button>
+        <button id="delete-images">Apagar Imagens selecionadas</button>
     <br><br>
     <form action="/img" method="post">
-        <a href="/">Back to Home</a>
+        <a href="/">Voltar</a>
     </form>
     </form>
     <script src="../static/js/img.js"></script>
