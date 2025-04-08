@@ -1,7 +1,7 @@
 from PIL import Image, ImageEnhance, ImageFilter
 
+# Aplica alterações na imagem.
 def enhance_image(image_path, sharpness=1.0, brightness=1.0, contrast=1.0, color=1.0):
-    """Aplica melhorias à imagem copiada."""
     try:
         img = Image.open(image_path)
         img = ImageEnhance.Sharpness(img).enhance(sharpness)
